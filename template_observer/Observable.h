@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <template_observer/Observer.h>
 
-template <class Type_Observable>
+template <class Type_Observable, class Type_State>
 class Observable
 {
 public:
@@ -36,6 +36,17 @@ public:
     }
     return (l_status);
   }
+    Type_State &GetState()
+    {
+        return m_state;
+    }
+
+    void SetState(const Type_State &p_state)
+    {
+        m_state = p_state;
+         this->NotifyObserver();
+    }
+
 
 protected:
   void NotifyObserver()
@@ -51,4 +62,5 @@ protected:
 
 private:
   std::vector<Observer<Type_Observable> *> m_observerList;
+  Type_State m_state;
 };
